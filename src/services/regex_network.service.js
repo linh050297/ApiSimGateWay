@@ -23,6 +23,11 @@ class RegexPhoneNetworkService {
             if( !maxLong && (typeof maxLong === 'number' &&  isFinite(maxLong)) === false ){
                 return {error:'Vui lòng điền đầy đủ độ dài dài nhất của SĐT'};
             }
+            //check exist
+            let findOne = await db.regex_sim.findOne( { where: { networkName }, raw : true } );
+            if(findOne){
+                return {error:'Vui lòng thêm nhà mạng khác'};
+            }
 
             //generate regex
             const flags = 'g';
