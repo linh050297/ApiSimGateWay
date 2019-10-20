@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
     const PhoneNumber = sequelize.define('phone_number',{
         phoneNumber: { type: DataTypes.STRING(15) },
         lastTimeCall: { type: DataTypes.DATE },
-        isCall: { type: DataTypes.DOUBLE },
+        isCall: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
         note: { type: DataTypes.TEXT },
     },
     {

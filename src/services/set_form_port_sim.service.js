@@ -7,6 +7,10 @@ class FormPortSimService {
                 console.log(formPortSim);
                 return {error:'Vui lòng điền đầy đủ thông tin cấu hình port sim'}
             }
+            //uppercase
+            for(var i = 0; i < formPortSim.length; i++){
+                formPortSim[i].name = formPortSim[i].name.toUpperCase();
+            }
             //change to string to save DB
             formPortSim = JSON.stringify(formPortSim);
             

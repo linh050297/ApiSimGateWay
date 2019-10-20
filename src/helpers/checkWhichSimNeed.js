@@ -33,7 +33,7 @@ let getNumberOfEachSim = (formPortSim, dataFromApiGateway)=>{
                 numberOfEachSim[dataFormPort[i].name] = 1
             }
             else{
-            numberOfEachSim[dataFormPort[i].name]++
+                numberOfEachSim[dataFormPort[i].name]++
             }
             
         }}

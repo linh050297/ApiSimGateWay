@@ -2,6 +2,7 @@ const {apiGatewayReturn} = require('./../DataDBFake/dataFromGateway');
 const {getNumberOfEachSim} = require('./../helpers/checkWhichSimNeed');
 const db = require('../models');
 const { FormPortSimService } = require('./../services/set_form_port_sim.service')
+const { checkPhoneNB } = require('./../helpers/checkPhoneNumber');
 
 
 let apiGateway = async()=>{
@@ -10,16 +11,17 @@ let apiGateway = async()=>{
     console.log('2',formPortSim);
     let numberOfEachPhone = getNumberOfEachSim(formPortSim, apiGatewayReturn);
     // console.log(numberOfEachPhone['mobi']);
-    let aa ={ vittel: 2, vina: 2, mobi: 1 };
     console.log(numberOfEachPhone);
     
 
     //get list of phone number in DB
-    let phoneNumbers = await db.phone_number.findAll({where: { isCall: null } , raw: true,  attributes: ['phoneNumber']});
+    let phoneNumbers = await db.phone_number.findAll({where: { isCall: false } , raw: true,  attributes: ['phoneNumber']});
     console.log('phoneNumbers: ', phoneNumbers);
     
-
     //get number of each phone push to array
+    let kq = await checkPhoneNB(phoneNumbers, numberOfEachPhone);
+    console.log('kq: ', kq);
+
 
     //call api gateWay to send a array of phone number 
 

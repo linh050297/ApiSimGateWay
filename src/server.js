@@ -3,6 +3,7 @@ const bodyParer = require('body-parser');
 const schedule = require('node-schedule');
 const { apiGateway } = require('./services/api.service');
 const { FormPortSimRouter } = require('./controllers/port_sim.router');
+const { RegexPhoneNetworkRouter } = require('./controllers/regex_phone.router');
 
 // var cors = require('cors');
 
@@ -33,6 +34,7 @@ app.use('/resources',express.static(__dirname + '/../public'));
 // });
 
 app.use('/port_sim', FormPortSimRouter);
+app.use('/regex_network', RegexPhoneNetworkRouter);
 
 
 module.exports = { app };
