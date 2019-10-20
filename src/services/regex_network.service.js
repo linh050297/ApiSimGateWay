@@ -135,13 +135,34 @@ class RegexPhoneNetworkService {
                 networkName = networkName.toUpperCase();
             }
             
-            const form = await db.regex_sim.findOne( { where: { networkName }, raw : true } );
+            const form = await db.regex_sim.findOne( { where: { networkName, isActive: true }, raw : true } );
 
             if (form) {
                 return form;
             }
             else {
                 return {error:'ID không tồn tại'};
+            }
+            
+        } catch (error) {
+            console.log('error: ', error);
+            return {error:'Có lỗi hệ thống'}
+        }
+    }
+
+    static async getAll() {
+        try {
+
+            
+            const form = await db.regex_sim.findAll( { where: { isActive: true }, raw : true,  attributes: ['networkName', 'regex'] } );
+
+            if (form) {
+                // console.log('form: ', form);
+
+                return form;
+            }
+            else {
+                return {error:'Không có mẫu regex nào hoặc chưa được kích hoạt'};
             }
             
         } catch (error) {

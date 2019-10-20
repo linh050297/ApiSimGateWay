@@ -7,11 +7,11 @@ const { checkPhoneNB } = require('./../helpers/checkPhoneNumber');
 
 let apiGateway = async()=>{
     let formPortSim = await FormPortSimService.getOne();
-    console.log('1',apiGatewayReturn);
-    console.log('2',formPortSim);
+    // console.log('1',apiGatewayReturn);
+    // console.log('2',formPortSim);
     let numberOfEachPhone = getNumberOfEachSim(formPortSim, apiGatewayReturn);
     // console.log(numberOfEachPhone['mobi']);
-    console.log(numberOfEachPhone);
+    // console.log(numberOfEachPhone);
     
 
     //get list of phone number in DB
@@ -21,7 +21,6 @@ let apiGateway = async()=>{
     //get number of each phone push to array
     let kq = await checkPhoneNB(phoneNumbers, numberOfEachPhone);
     console.log('kq: ', kq);
-
 
     //call api gateWay to send a array of phone number 
 
