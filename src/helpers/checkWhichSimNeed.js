@@ -30,6 +30,7 @@ let getNumberOfEachSim = (formPortSim, dataFromApiGateway)=>{
     for( var i = 0 ; i <= l ; i++ ){
         if( dataFormPort[i].value.includes(ele) === true ){
             if(!numberOfEachSim.hasOwnProperty(dataFormPort[i].name)){
+                console.log('numberOfEachSim: ', numberOfEachSim);
                 numberOfEachSim[dataFormPort[i].name] = 1
             }
             else{
