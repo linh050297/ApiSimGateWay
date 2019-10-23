@@ -7,6 +7,14 @@ class RegexPhoneNetworkService {
             if ( arrayOfFirstNumber.length <= 0 ) {
                 return {error:'Vui lòng điền đầy đủ đầu số nhà mạng'}
             }
+            //check arrayOfFirstNumber must contain only number
+            let regex = /^[-+]?[0-9]+$/;
+            for(let ele of arrayOfFirstNumber){
+                if((regex.test(ele)) != true){
+                    return { error: 'Vui lòng kiểm tra lại đầu số' }
+                }
+            }
+                
             if(!isActive){
                 isActive = 1;
             }
@@ -86,6 +94,13 @@ class RegexPhoneNetworkService {
                 isActive = 1;
             }
 
+            let regex = /^[-+]?[0-9]+$/;
+            for(let ele of arrayOfFirstNumber){
+                if((regex.test(ele)) != true){
+                    return { error: 'Vui lòng kiểm tra lại đầu số' }
+                }
+            }
+
             if ( arrayOfFirstNumber ) {
 
                  //generate regex
@@ -157,13 +172,10 @@ class RegexPhoneNetworkService {
 
     static async getAll() {
         try {
-
             
             const form = await db.regex_sim.findAll( { where: { isActive: true }, raw : true,  attributes: ['networkName', 'regex'] } );
 
             if (form) {
-                // console.log('form: ', form);
-
                 return form;
             }
             else {

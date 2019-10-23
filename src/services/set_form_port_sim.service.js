@@ -11,6 +11,21 @@ class FormPortSimService {
             for(var i = 0; i < formPortSim.length; i++){
                 formPortSim[i].name = formPortSim[i].name.toUpperCase();
             }
+
+            //check duplicated value position
+            let duplicatedArr = [];
+            formPortSim.forEach((ele)=>{
+            duplicatedArr.push(...ele.value)
+            });
+            let dub = (function hasDuplicates(arr) {
+                return arr.some( function(item) {
+                    return arr.indexOf(item) !== arr.lastIndexOf(item);
+                });
+            })(duplicatedArr);
+            if(dub == true){
+                return { error: 'Vị trí các sim port đã bị trùng' }
+            }   
+
             //change to string to save DB
             formPortSim = JSON.stringify(formPortSim);
             
@@ -57,7 +72,26 @@ class FormPortSimService {
 
             if (!formPortSim) {
                 return {error:'Vui lòng điền đầy đủ thông tin cấu hình port sim'};
+            };
+
+            //uppercase
+            for(var i = 0; i < formPortSim.length; i++){
+                formPortSim[i].name = formPortSim[i].name.toUpperCase();
             }
+
+            //check duplicated value position
+            let duplicatedArr = [];
+            formPortSim.forEach((ele)=>{
+            duplicatedArr.push(...ele.value)
+            });
+            let dub = (function hasDuplicates(arr) {
+                return arr.some( function(item) {
+                    return arr.indexOf(item) !== arr.lastIndexOf(item);
+                });
+            })(duplicatedArr);
+            if(dub == true){
+                return { error: 'Vị trí các sim port đã bị trùng' }
+            }  
 
             const form = await db.form_port.findOne( { where: { id: idData }, raw : true } ); // Check have data
 
@@ -70,7 +104,7 @@ class FormPortSimService {
                     where: { id: idData }
                 });
 
-                return update;
+                return {message: 'successful!!!'}
             }
             else {
                 return {error:'ID không tồn tại'};

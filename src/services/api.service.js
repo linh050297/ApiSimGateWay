@@ -11,7 +11,7 @@ let apiGateway = async()=>{
     // console.log('2',formPortSim);
     let numberOfEachPhone = getNumberOfEachSim(formPortSim, apiGatewayReturn);
     // console.log(numberOfEachPhone['mobi']);
-    console.log('sadada',numberOfEachPhone);
+    console.log('numberOfEachPhone::',numberOfEachPhone);
     
 
     //get list of phone number in DB

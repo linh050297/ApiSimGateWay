@@ -1,40 +1,33 @@
 const {RegexPhoneNetworkService} = require('./../services/regex_network.service');
 
 let checkPhoneNB = async (phoneNumbers, phoneNumberEachNetwork)=>{
-    // console.log('phoneNumberEachNetwork: ', phoneNumberEachNetwork);
     let arrayOfPhoneNumberReturn = [];
-    let nameNetworkArray = Object.keys(phoneNumberEachNetwork);
     let arrayOfPhoneNumberIsMathRegex = []; //get keyvalue of object
-    // console.log('nameNetworkArray: ', nameNetworkArray);
     let arrayNameNetworkWithRegex = await RegexPhoneNetworkService.getAll();
-    // console.log('nameNetworkArray: ', nameNetworkArray);
     for (const number of phoneNumbers) {
-        // console.log('nameNetworkArray: ', nameNetworkArray);
-        for (const name of nameNetworkArray) {
-            //add a mount of phonenumber each network
+        for (const name of phoneNumberEachNetwork) {
+                //find object has contain a exactly name
                 let findNetworkName = arrayNameNetworkWithRegex.find(function(element) {
-                    return element.networkName == name;
+                    return element.networkName == name.name;
                 });
-                // console.log('found.regex',findNetworkName)
-    
+                //get regex with each name network and compare, to get list of phone nmuber is need
                 if( findNetworkName != undefined ){
                     let flags = 'g';
                     let strFilterRegEx = new RegExp(findNetworkName.regex, flags); // to generate regex from DB
-                    // console.log('strFilterRegEx: ', strFilterRegEx);
                     if( strFilterRegEx.test(number.phoneNumber) === true ){
-                        arrayOfPhoneNumberIsMathRegex.push( {key:name, phone: number.phoneNumber} );
+                        arrayOfPhoneNumberIsMathRegex.push( {key:name.name, phone: number.phoneNumber} );
                     }
                 }  
-                
         }
     }
     //get a number of phone number each network by param phoneNumberEachNetwork
-    for (const nameTwo of nameNetworkArray) {
-        
-        let result = arrayOfPhoneNumberIsMathRegex.filter(word => word.key == nameTwo);
+    for (const nameTwo of phoneNumberEachNetwork) {
+        // generate a result array contain all data with same name
+        let result = arrayOfPhoneNumberIsMathRegex.filter(word => word.key == nameTwo.name);
+        //get a number of Phone number is need
         if(result.length > 0){
-            let mang_moi = result.slice(0, phoneNumberEachNetwork[nameTwo]);
-            let pushTo = mang_moi.map(x=> x.phone)
+            let mang_moi = result.slice(0, nameTwo.value);
+            let pushTo = mang_moi.map( x => x.phone );
             arrayOfPhoneNumberReturn.push(...pushTo);
         }  
     }        
@@ -42,3 +35,4 @@ let checkPhoneNB = async (phoneNumbers, phoneNumberEachNetwork)=>{
 }
 
 module.exports = {checkPhoneNB};
+
