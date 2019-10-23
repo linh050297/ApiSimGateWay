@@ -17,7 +17,7 @@ let apiGateway = async()=>{
     //get list of phone number in DB
     let phoneNumbers = await db.phone_number.findAll({where: { isCall: false } , raw: true,  attributes: ['id','phoneNumber']});
     // console.log('phoneNumbers: ', phoneNumbers);
-    let arrayIdToUpdate = phoneNumbers.map((ele)=>{ return ele.id });
+    // let arrayIdToUpdate = phoneNumbers.map((ele)=>{ return ele.id });
     //get number of each phone push to array
     let kq = await checkPhoneNB(phoneNumbers, numberOfEachPhone);
     console.log('kq: ', kq);//[ '01235498547', '01246987456', '0971785209', '0991795209' ]
@@ -30,7 +30,7 @@ let apiGateway = async()=>{
     //     let phoneNumberIsCall = await db.phone_number.update({
     //         isCall: true
     //     },{
-    //         where: { id: arrayIdToUpdate }
+    //         where: { phoneNumber: kq }
     //     });
 
     //     if(!phoneNumberIsCall){

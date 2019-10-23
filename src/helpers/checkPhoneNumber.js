@@ -21,6 +21,8 @@ let checkPhoneNB = async (phoneNumbers, phoneNumberEachNetwork)=>{
         }
     }
     //get a number of phone number each network by param phoneNumberEachNetwork
+    console.log('arrayOfPhoneNumberIsMathRegex: ', arrayOfPhoneNumberIsMathRegex);
+    console.log('phoneNumberEachNetwork: ', phoneNumberEachNetwork);
     for (const nameTwo of phoneNumberEachNetwork) {
         // generate a result array contain all data with same name
         let result = arrayOfPhoneNumberIsMathRegex.filter(word => word.key == nameTwo.name);
